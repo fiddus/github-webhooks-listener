@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/fiddus/deploy-listener#readme",
   "dependencies": {
+    "async": "^1.4.2",
     "body-parser": "^1.13.3",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "shelljs": "^0.5.3"
   }
 }
