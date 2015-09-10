@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.post('/deploy', function (req, res) {
-    console.log(req.body);
+    console.log('req.body', req.body);
     res.send();
 });
 
