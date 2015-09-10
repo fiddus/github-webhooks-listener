@@ -1,0 +1,30 @@
+{
+  "name": "deploy-listener",
+  "version": "0.0.1",
+  "description": "A module to listen to github hooks and to update and deploy project when push event occurs",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiddus/deploy-listener.git"
+  },
+  "keywords": [
+    "git",
+    "hooks",
+    "deploy",
+    "automation",
+    "devops"
+  ],
+  "author": "Vinicius Teixeira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiddus/deploy-listener/issues"
+  },
+  "homepage": "https://github.com/fiddus/deploy-listener#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3"
+  }
+}
