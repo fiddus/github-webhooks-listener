@@ -8,7 +8,7 @@ var express = require('express'),
     shell = require('shelljs'),
     appPath = '/home/git/case4you-server',
     appStartCmd = 'forever start app.js',
-    appStopCmd = 'forever stopall';
+    appStopCmd = 'forever stop app.js';
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -21,24 +21,24 @@ app.post('/deploy', function (req, res) {
 
         async.series([
             function stopCurrentRunning (next) {
-                console.log('stopping current')
+                console.log('stopping current running app')
                 shell.exec(appStopCmd, next);
             },
             function gitPull (next) {
-                console.log('git pull');
+                console.log('Fetching changes');
                 shell.exec('git pull origin master', next);
             },
             function npmInstall (next) {
-                console.log('npm install');
+                console.log('Installing new dependencies, if any');
                 shell.exec('npm install', next);
             },
+            function runNewVersion () {
+                console.log('starting updated app');
+                shell.exec(appStartCmd, function () {
+                    res.statusCode(200).send();
+                });
+            }
         ]);
-        function runNewVersion () {
-            console.log('starting new app');
-            shell.exec(appStartCmd, function () {
-                res.statusCode(200).send();
-            });
-        }
     } else {
         res.statusCode(200).send();
     }
