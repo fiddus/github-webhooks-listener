@@ -32,14 +32,16 @@ app.post('/deploy', function (req, res) {
                 console.log('git pull');
                 shell.exec('git pull origin master', next);
             },
-            function runNewVersion () {
-                console.log('starting new app');
-                shell.exec(appStartCmd);
-            }
         ]);
+        function runNewVersion () {
+            console.log('starting new app');
+            shell.exec(appStartCmd, function () {
+                res.statusCode(200).send();
+            });
+        }
+    } else {
+        res.statusCode(200).send();
     }
-
-    res.send(200);
 });
 
 server.listen(5000, function() {
