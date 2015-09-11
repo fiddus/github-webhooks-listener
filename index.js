@@ -10,16 +10,10 @@ var express = require('express'),
     appStartCmd = 'forever start app.js',
     appStopCmd = 'forever stop app.js',
     secret = process.env.DEPLOY_LISTENER_SECRET,
-    crypto = require('crypto'),
-    compare = require('secure-compare'),
+    verifyGitHubSignature = require('./lib/verifyGitHubSignature'),
+    deployTasks = require('./lib/deployTasks');
 
-    isRequestAuthentic = function (req) {
-        var hmac = crypto.createHmac('sha1', secret);
-
-        hmac.update(JSON.stringify(req.body));
-
-        return compare(req.header('X-Hub-Signature'), 'sha1=' + hmac.digest('hex'));
-    };
+verifyGitHubSignature.setSecret(secret);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -27,7 +21,7 @@ app.use(bodyParser.json());
 app.post('/deploy', function (req, res) {
 
     // Checking if request is authentic
-    if (isRequestAuthentic(req)) {
+    if (verifyGitHubSignature.ofRequest(req)) {
 
         // If master was updated, do stuff
         if (req.body.ref && req.body.ref === 'refs/heads/master') {
@@ -61,8 +55,6 @@ app.post('/deploy', function (req, res) {
     }
 
 });
-
-
 
 server.listen(5000, function() {
     console.log('Listening for Deploy Events');
