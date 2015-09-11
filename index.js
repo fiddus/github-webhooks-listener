@@ -22,15 +22,15 @@ app.post('/deploy', function (req, res) {
         async.series([
             function stopCurrentRunning (next) {
                 console.log('stopping current')
-                shell.exec(appStartCmd, next);
-            },
-            function npmInstall (next) {
-                console.log('npm install');
-                shell.exec('npm install', next);
+                shell.exec(appStopCmd, next);
             },
             function gitPull (next) {
                 console.log('git pull');
                 shell.exec('git pull origin master', next);
+            },
+            function npmInstall (next) {
+                console.log('npm install');
+                shell.exec('npm install', next);
             },
         ]);
         function runNewVersion () {
