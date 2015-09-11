@@ -35,12 +35,12 @@ app.post('/deploy', function (req, res) {
             function runNewVersion () {
                 console.log('starting updated app');
                 shell.exec(appStartCmd, function () {
-                    res.statusCode(200).send();
+                    res.status(200).send();
                 });
             }
         ]);
     } else {
-        res.statusCode(200).send();
+        res.status(200).send();
     }
 });
 
