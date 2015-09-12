@@ -1,5 +1,6 @@
-'use strict';
+/* global describe, it */
 
+'use strict';
 
 
 var verifyGitHubSignature = require('../lib/verifyGitHubSignature'),
