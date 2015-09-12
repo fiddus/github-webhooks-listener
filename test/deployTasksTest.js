@@ -37,10 +37,9 @@ describe('Testing deployTasks module', function () {
 
     it('should run tasks in correct order: stop, update, postUpdate and start', function (done) {
         deployTasks.run(function () {
-            expect(stubShell.exec.getCall(0).args[0]).to.equal(config.stopCmd);
-            expect(stubShell.exec.getCall(1).args[0]).to.equal(config.updateCmd);
-            expect(stubShell.exec.getCall(2).args[0]).to.equal(config.postUpdateCmd);
-            expect(stubShell.exec.getCall(3).args[0]).to.equal(config.startCmd);
+            [config.stopCmd, config.updateCmd, config.postUpdateCmd, config.startCmd].forEach(function (task, index) {
+                expect(stubShell.exec.getCall(index).args[0]).to.equal(task);
+            });
             done();
         });
     });
