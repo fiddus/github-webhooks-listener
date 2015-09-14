@@ -1,6 +1,6 @@
 {
   "name": "deploy-listener",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A module to listen to github hooks and to update and deploy project when push event occurs",
   "main": "index.js",
   "scripts": {
