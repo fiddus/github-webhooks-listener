@@ -1,14 +1,15 @@
 {
-  "name": "deploy-listener",
+  "name": "github-webhooks-listener",
   "version": "0.1.0",
   "description": "A module to listen to github hooks and to update and deploy project when push event occurs",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "start": "forever start index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fiddus/deploy-listener.git"
+    "url": "git+https://github.com/fiddus/github-webhooks-listener.git"
   },
   "keywords": [
     "git",
@@ -20,9 +21,9 @@
   "author": "Vinicius Teixeira",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fiddus/deploy-listener/issues"
+    "url": "https://github.com/fiddus/github-webhooks-listener/issues"
   },
-  "homepage": "https://github.com/fiddus/deploy-listener#readme",
+  "homepage": "https://github.com/fiddus/github-webhooks-listener#readme",
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "^1.13.3",
