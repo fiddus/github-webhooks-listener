@@ -1,7 +1,7 @@
 # Deploy Listener
 
 This project creates a simple server that listens to [GitHub WebHooks](https://developer.github.com/webhooks/) and then
-runs a set of commands to, primarily, update the application that sent the reques.
+runs a set of commands to, primarily, update the application that sent the request.
 
 ## Motivation
 
@@ -13,9 +13,6 @@ that runs in a cloud server, so that the live code stays updated with repository
 In order to use this module, you must first configure the GitHub repository that you want to keep updated. For this, you
 must go to the repository settings page and click in 'Webhooks and services' and then in 'Add webhook'.
 
-In the `payload URL you must put the server's url with the path that you want to use for this module. It cannot be a path
-that your server currently listens to, it must be a new path that will be configured in the server.
-
 Leave 'Content-Type' as `application/json` and choose a reasonable secret key. The key you insert in GitHub should be
 added to your server environment variables as `DEPLOY_LISTENER_SECRET`.
 
@@ -26,14 +23,25 @@ Click 'Add the webhook'.
 
 ## Configuring Server
 
-Clone this repository to your server, `npm install` and `npm start`. It will ask for several parameters about the
-application you want to keep updated, the route you want to use and the port that will be used to listen to the hooks.
-If necessary, you could do some port-forwarding to have a clean url in GitHub Webhooks. Otherwise, don't forget to
-include the port in the `payload` url.
+Clone this repository to your server, `npm install` and `node index.js`. The first time it runs, it will ask for several
+parameters about the application you want to keep updated, the route you want to use and the port that will be used to
+listen to the hooks. If necessary, you could do some port-forwarding to have a clean url in GitHub Webhooks. Otherwise,
+don't forget to include the port in the `payload` url.
 
-`npm start` depends upon [forever](https://github.com/foreverjs/forever) so you should have it installed globally to
-use this command. If you want, you can just spawn a node process with `node index.js` or use any other library to ensure
-that this module will be running constantly.
+After running the first time, a `config.json` file will be created so that next runs won't ask for everything again.
+You could create a `config.json` file manually. The required parameters are:
+
+```json
+{
+    "route": "/payload",
+    "port": "5000",
+    "appPath": "/path/to/your/app",
+    "stopCmd": "forever stop app.js",
+    "updateCmd": "git pull origin master",
+    "postUpdateCmd": "npm install",
+    "startCmd": "forever start app.js"
+}
+```
 
 ## That's all folks
 
@@ -41,8 +49,8 @@ Now your application will be automatically updated in the server whenever a push
 
 ## Warning
 
-This module was developed for use in development environments and it has not been tested in production environments. Use
-at your own risk.
+This module was developed for use in development environments and it has not been tested in production. Use at your own
+risk.
 
 ## TODO
 
