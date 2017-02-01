@@ -45,6 +45,6 @@ getConfig(function (config) {
     });
 
     server.listen(config.port, function () {
-        console.log('Listening for Deploy Events');
+        console.log(`Listening for webhook events on port ${config.port}`);
     });
 });
