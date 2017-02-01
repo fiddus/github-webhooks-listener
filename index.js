@@ -27,15 +27,19 @@ getConfig(function (config) {
             // If master was updated, do stuff
             if (req.body.ref && req.body.ref === 'refs/heads/master') {
 
+                console.log('Valid payload! Running commands');
+
                 deployTasks.run(function () {
                     res.status(200).send();
                 });
 
             } else {
                 // if other branches were updated, send 200 only to make github happy...
+                console.log('Received payload unrelated to master branch');
                 res.status(200).send();
             }
         } else {
+            console.warn('Received payload with an invalid secret');
             res.status(403).send();
         }
     });
