@@ -19,13 +19,15 @@ verifyGitHubSignature.setSecret(secret);
 getConfig(function (config) {
     deployTasks.initConfig(config);
 
+    var branch = config.branch || 'master';
+
     app.post(config.route, function (req, res) {
 
         // Checking if request is authentic
         if (verifyGitHubSignature.ofRequest(req)) {
 
             // If master was updated, do stuff
-            if (req.body.ref && req.body.ref === 'refs/heads/master') {
+            if (req.body.ref && req.body.ref === `refs/heads/${branch}`) {
 
                 console.log('Valid payload! Running commands');
 
@@ -35,7 +37,7 @@ getConfig(function (config) {
 
             } else {
                 // if other branches were updated, send 200 only to make github happy...
-                console.log('Received payload unrelated to master branch');
+                console.log(`Received payload unrelated to ${branch} branch`);
                 res.status(200).send();
             }
         } else {
