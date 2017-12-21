@@ -31,9 +31,9 @@ getConfig(function (config) {
 
                 console.log('Valid payload! Running commands');
 
-                deployTasks.run(function () {
-                    res.status(200).send();
-                });
+                res.status(200).send();
+
+                deployTasks.run();
 
             } else {
                 // if other branches were updated, send 200 only to make github happy...
