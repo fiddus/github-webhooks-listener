@@ -1,6 +1,6 @@
 {
   "name": "github-webhooks-listener",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A module to listen to github hooks and to update and deploy project when push event occurs",
   "main": "index.js",
   "scripts": {
@@ -40,5 +40,8 @@
     "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.3.2",
     "sinon": "^1.16.1"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   }
 }
